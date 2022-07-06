@@ -1,7 +1,9 @@
 import { Component } from "react";
+import Input from "./Components/Input/Input";
 import List from "./Components/List/List";
 import Listitem from "./Components/LIstitem/Listitem";
 import Text from "./Components/Text/Text";
+import Card from "./Ui/Card/Card";
 import Wrapper from "./Ui/Wrapper/Wrapper";
 
 class App extends Component {
@@ -15,17 +17,32 @@ class App extends Component {
         {name: "Vahagn", surname: "Davtyan", age: 70, hobby: "Writing", id: 4},
         {name: "Klareenc", surname: "Seedorf", age: 40, hobby: "Playing", id: 5},
       ],
-      nextUserId: 6
+      nextUserId: 6,
+      searchedName: ''
     }
   } 
+
+  changeSearchedNameHandler = (event) => {
+    this.setState({
+      searchedName: event.target.value
+    })
+  }
+
+  filterUsersBySearchName = (item) => {
+      return item.name.toLocaleLowerCase().includes(this.state.searchedName.toLocaleLowerCase())
+  }
 
 
   render() {
     return (
       <Wrapper>
+        <Card>
+          <Text> filter users by name </Text>
+          <Input onChange={this.changeSearchedNameHandler} type='text' />
+        </Card>
          <List>
            {
-            this.state.userList.map(user => {
+            this.state.userList.filter(this.filterUsersBySearchName).map(user => {
               return (
                 <Listitem key={user.id}>
                   <Text> {user.name} </Text>
