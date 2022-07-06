@@ -6,6 +6,7 @@ import Listitem from "./Components/LIstitem/Listitem";
 import Text from "./Components/Text/Text";
 import Card from "./Ui/Card/Card";
 import Wrapper from "./Ui/Wrapper/Wrapper";
+import classes from './Ui/Global.module.css'
 
 class App extends Component {
   constructor(props) {
@@ -78,36 +79,38 @@ class App extends Component {
   render() {
     return (
       <Wrapper>
-        <Card>
+        <Card className={classes['app-container']}>
+        <Card className={classes.form}>
           <Text> filter users by name </Text>
-          <Input onChange={this.changeSearchedNameHandler} type='text' />
+          <Input className={classes['input-field']} placeholder='search user' onChange={this.changeSearchedNameHandler} type='text' />
         </Card>
-        <Card>
+        <Card className={classes.form}>
           <Text> new user name </Text>
-          <Input propsRef={this.nextUserName}  type='text' />
+          <Input className={classes['input-field']} placeholder='new user name' propsRef={this.nextUserName}  type='text' />
           <Text> new user surname </Text>
-          <Input propsRef={this.nextUserSurname}  type='text' />
+          <Input className={classes['input-field']} placeholder='new user surname' propsRef={this.nextUserSurname}  type='text' />
           <Text> new user age </Text>
-          <Input propsRef={this.nextUserAge}  type='number' />
+          <Input className={classes['input-field']} placeholder='new user age' propsRef={this.nextUserAge}  type='number' />
           <Text> new user hobby </Text>
-          <Input propsRef={this.nextUserHobby}  type='text' />
-          <Button onClick={this.addNewUserHandler}> add new user </Button>
+          <Input className={classes['input-field']} placeholder='new user hobby' propsRef={this.nextUserHobby}  type='text' />
+          <Button className={classes.button} onClick={this.addNewUserHandler}> add new user </Button>
         </Card>
-         <List>
+         <List className={classes.list}>
            {
             this.state.userList.filter(this.filterUsersBySearchName).map(user => {
               return (
-                <Listitem key={user.id}>
+                <Listitem className={classes['list-item']} key={user.id}>
                   <Text> {user.name} </Text>
                   <Text> {user.surname} </Text>
                   <Text> {user.age} </Text>
                   <Text> {user.hobby} </Text>
-                  <Button onClick={() => this.deleteExistingUserHandler(user.id)}> delete user </Button>
+                  <Button className={classes.button} onClick={() => this.deleteExistingUserHandler(user.id)}> delete user </Button>
                 </Listitem>
               )
             })
            }
          </List>
+         </Card>
       </Wrapper>
     )
   }
