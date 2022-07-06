@@ -1,4 +1,8 @@
 import { Component } from "react";
+import List from "./Components/List/List";
+import Listitem from "./Components/LIstitem/Listitem";
+import Text from "./Components/Text/Text";
+import Wrapper from "./Ui/Wrapper/Wrapper";
 
 class App extends Component {
   constructor(props) {
@@ -18,9 +22,22 @@ class App extends Component {
 
   render() {
     return (
-      <section>
-        
-      </section>
+      <Wrapper>
+         <List>
+           {
+            this.state.userList.map(user => {
+              return (
+                <Listitem key={user.id}>
+                  <Text> {user.name} </Text>
+                  <Text> {user.surname} </Text>
+                  <Text> {user.age} </Text>
+                  <Text> {user.hobby} </Text>
+                </Listitem>
+              )
+            })
+           }
+         </List>
+      </Wrapper>
     )
   }
 }
