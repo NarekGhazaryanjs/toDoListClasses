@@ -40,6 +40,16 @@ class App extends Component {
           <Text> filter users by name </Text>
           <Input onChange={this.changeSearchedNameHandler} type='text' />
         </Card>
+        <Card>
+          <Text> new user name </Text>
+          <Input  type='text' />
+          <Text> new user surname </Text>
+          <Input  type='text' />
+          <Text> new user age </Text>
+          <Input  type='number' />
+          <Text> new user hobby </Text>
+          <Input  type='text' />
+        </Card>
          <List>
            {
             this.state.userList.filter(this.filterUsersBySearchName).map(user => {

@@ -1,13 +1,17 @@
 import { Component } from "react";
+import Wrapper from "../../Ui/Wrapper/Wrapper";
 
 class Input extends Component {
     render() {
         return (
-            <input 
-            ref={this.props.propsRef} 
-            type={this.props.type} 
-            onChange={this.props.onChange} 
-            />
+            <Wrapper>
+               <input 
+               ref={this.props.propsRef} 
+               type={this.props.type} 
+               onChange={this.props.onChange} 
+               />
+               <br />
+            </Wrapper>
         )
     }
 }
