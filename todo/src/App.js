@@ -1,4 +1,5 @@
-import { Component } from "react";
+import React, { Component } from "react";
+import Button from "./Components/Button/Button";
 import Input from "./Components/Input/Input";
 import List from "./Components/List/List";
 import Listitem from "./Components/LIstitem/Listitem";
@@ -20,6 +21,10 @@ class App extends Component {
       nextUserId: 6,
       searchedName: ''
     }
+    this.nextUserName = React.createRef('');
+    this.nextUserSurname = React.createRef('');
+    this.nextUserAge = React.createRef('');
+    this.nextUserHobby = React.createRef('');
   } 
 
   changeSearchedNameHandler = (event) => {
@@ -32,6 +37,36 @@ class App extends Component {
       return item.name.toLocaleLowerCase().includes(this.state.searchedName.toLocaleLowerCase())
   }
 
+  addNewUserHandler = () => {
+    if(
+      this.nextUserName.current.value.length >= 3 
+      && this.nextUserName.current.value.length <= 10
+      && this.nextUserSurname.current.value.length >= 3 
+      && this.nextUserSurname.current.value.length <= 10 
+      && this.nextUserAge.current.value >= 18
+      && this.nextUserAge.current.value <= 70
+      && this.nextUserHobby.current.value.length >= 3
+      && this.nextUserHobby.current.value.length <= 15
+    ) {
+      const newUser = {
+        name: this.nextUserName.current.value,
+        surname: this.nextUserSurname.current.value,
+        age: this.nextUserAge.current.value,
+        hobby: this.nextUserHobby.current.value,
+        id: this.state.nextUserId
+      }
+      this.setState({
+        nextUserId: this.state.nextUserId + 1,
+        userList: this.state.userList.concat(newUser)
+      })
+      this.nextUserName.current.value = '';
+      this.nextUserSurname.current.value = '';
+      this.nextUserAge.current.value = '';
+      this.nextUserHobby.current.value = ''
+    }
+   return
+  }
+
 
   render() {
     return (
@@ -42,13 +77,14 @@ class App extends Component {
         </Card>
         <Card>
           <Text> new user name </Text>
-          <Input  type='text' />
+          <Input propsRef={this.nextUserName}  type='text' />
           <Text> new user surname </Text>
-          <Input  type='text' />
+          <Input propsRef={this.nextUserSurname}  type='text' />
           <Text> new user age </Text>
-          <Input  type='number' />
+          <Input propsRef={this.nextUserAge}  type='number' />
           <Text> new user hobby </Text>
-          <Input  type='text' />
+          <Input propsRef={this.nextUserHobby}  type='text' />
+          <Button onClick={this.addNewUserHandler}> add new user </Button>
         </Card>
          <List>
            {
