@@ -37,6 +37,13 @@ class App extends Component {
       return item.name.toLocaleLowerCase().includes(this.state.searchedName.toLocaleLowerCase())
   }
 
+  deleteExistingUserHandler = (id) => {
+      const userListWithoutDeletedUser = this.state.userList.filter(user => user.id !== id)
+      this.setState({
+        userList: userListWithoutDeletedUser,
+      })
+    }
+
   addNewUserHandler = () => {
     if(
       this.nextUserName.current.value.length >= 3 
@@ -95,6 +102,7 @@ class App extends Component {
                   <Text> {user.surname} </Text>
                   <Text> {user.age} </Text>
                   <Text> {user.hobby} </Text>
+                  <Button onClick={() => this.deleteExistingUserHandler(user.id)}> delete user </Button>
                 </Listitem>
               )
             })
